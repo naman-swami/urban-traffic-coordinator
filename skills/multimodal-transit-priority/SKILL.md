@@ -1,15 +1,23 @@
 ---
 name: multimodal-transit-priority
-description: "Providing conditional signal extension to delayed public transit buses without causing cross-street saturation."
-version: "0.1.0"
+description: Providing conditional signal extensions to delayed transit buses without causing cross-street saturation.
 ---
 
 # multimodal-transit-priority
 
-## Objective
-Providing conditional signal extension to delayed public transit buses without causing cross-street saturation.
+## Procedure
+1. Parse incoming domain input and identify critical parameters.
+2. Cross-reference with standard operational baselines.
+3. Perform step-by-step evaluation using first-principles logic.
+4. Verify edge cases and consistency constraints.
+5. Emit structured JSON output report.
 
-## Implementation Procedure
-1. Parse incoming parameters and check domain preconditions.
-2. Apply validated transformation pipelines and mathematical heuristics.
-3. Formulate structured output objects containing confidence metrics and audit traces.
+## Output Contract
+```json
+{
+  "skill": "multimodal-transit-priority",
+  "status": "completed",
+  "confidence": 0.95,
+  "findings": []
+}
+```

@@ -1,0 +1,30 @@
+annotations:
+  cost: none
+  read_only: true
+  requires_confirmation: false
+description: Predict bottleneck spillback risk onto upstream highway ramps using shockwave
+  traffic theory.
+input_schema:
+  additionalProperties: false
+  properties:
+    demand_flow_vph:
+      type: number
+    ramp_meter_id:
+      type: string
+  required:
+  - ramp_meter_id
+  type: object
+name: simulate-queue-spillback
+output_schema:
+  additionalProperties: false
+  properties:
+    confidence:
+      type: number
+    data:
+      type: string
+    status:
+      type: string
+  required:
+  - status
+  - data
+  type: object

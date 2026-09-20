@@ -1,0 +1,28 @@
+{
+  "name": "urban-traffic-coordinator",
+  "instructions": "You are urban-traffic-coordinator. Dynamically compute split and offset timings across traffic control intersections to prioritize emergency vehicles and minimize corridor congestion emissions.",
+  "model": "gpt-4o",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "compute-intersection-splits",
+        "description": "Calculate Webster cycle lengths and green splits from inductive loop volume and occupancy sensors."
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "trigger-corridor-preemption",
+        "description": "Schedule green clearance intervals along path of approaching emergency vehicle GPS telemetry."
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "simulate-queue-spillback",
+        "description": "Predict bottleneck spillback risk onto upstream highway ramps using shockwave traffic theory."
+      }
+    }
+  ]
+}
