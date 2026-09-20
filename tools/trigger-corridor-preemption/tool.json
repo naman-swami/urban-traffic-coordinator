@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "trigger-corridor-preemption",
+  "description": "Schedule green clearance interval along path of approaching emergency GPS telemetry.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "corridor_id": {
+        "type": "string"
+      },
+      "vehicle_gps_trajectory": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "corridor_id",
+      "vehicle_gps_trajectory"
+    ]
+  }
+}

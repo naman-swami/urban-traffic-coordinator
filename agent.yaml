@@ -1,0 +1,6 @@
+spec_version: "0.1.0"
+name: urban-traffic-coordinator
+version: "0.1.0"
+description: "Real-time urban corridor flow optimization agent dynamically synchronizing arterial traffic lights, emergency vehicle preemption, and multimodal congestion management."
+model:
+  preferred: llama-3.3-70b-versatile
