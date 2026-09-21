@@ -55,7 +55,7 @@ urban-traffic-coordinator/
 │   └── hcm_level_of_service.md      # Highway Capacity Manual standards
 ├── tests/
 │   └── test_agent.py                # Traffic engineering test suite
-├── main.py                          # Traffic optimization CLI
+├── coordinate.py                          # Traffic optimization CLI
 └── requirements.txt
 ```
 
@@ -66,5 +66,5 @@ urban-traffic-coordinator/
 pytest tests/ -v
 
 # Optimize downtown arterial intersection
-python main.py --demo
+python coordinate.py --demo
 ```
