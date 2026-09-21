@@ -1,9 +1,22 @@
+import os
 import pytest
-from src.traffic_engine import UrbanTrafficFlowEngine
+from models.webster_signal_timing import WebsterSignalOptimizer
 
 def test_webster_cycle_calculation():
-    engine = UrbanTrafficFlowEngine()
-    res = engine.calculate_webster_cycle(lost_time_seconds=10.0, critical_flow_ratio_sum=0.60)
-    # (1.5 * 10 + 5) / (1 - 0.6) = 20 / 0.4 = 50.0s
-    assert res["optimal_cycle_length_seconds"] == 50.0
-    assert res["level_of_service"] == "LOS_B"
+    phases = [
+        {"phase_name": "NS", "critical_flow_vph": 800.0, "saturation_flow_vph": 1800.0},
+        {"phase_name": "EW", "critical_flow_vph": 400.0, "saturation_flow_vph": 1800.0}
+    ]
+    res = WebsterSignalOptimizer.calculate_cycle_and_splits(phases, total_lost_time_l=10.0)
+    assert res["optimal_cycle_seconds"] >= 45.0
+    assert "NS" in res["green_phase_splits_seconds"]
+    assert "EW" in res["green_phase_splits_seconds"]
+    assert res["green_phase_splits_seconds"]["NS"] > res["green_phase_splits_seconds"]["EW"]
+
+def test_oversaturated_gridlock():
+    phases = [
+        {"phase_name": "NS", "critical_flow_vph": 1800.0, "saturation_flow_vph": 1800.0},
+        {"phase_name": "EW", "critical_flow_vph": 1800.0, "saturation_flow_vph": 1800.0}
+    ]
+    res = WebsterSignalOptimizer.calculate_cycle_and_splits(phases, total_lost_time_l=10.0)
+    assert res["error"] == "OVERSATURATED_INTERSECTION"

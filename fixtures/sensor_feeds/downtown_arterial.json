@@ -1,0 +1,16 @@
+{
+  "intersection_id": "MAIN-AND-BROADWAY",
+  "lost_time_seconds": 12.0,
+  "phases": [
+    {
+      "phase_name": "NORTH_SOUTH",
+      "critical_flow_vph": 950.0,
+      "saturation_flow_vph": 1800.0
+    },
+    {
+      "phase_name": "EAST_WEST",
+      "critical_flow_vph": 600.0,
+      "saturation_flow_vph": 1800.0
+    }
+  ]
+}

@@ -1,19 +1,34 @@
-import json
 import argparse
-from src.traffic_engine import UrbanTrafficFlowEngine
+import json
+import os
+from models.webster_signal_timing import WebsterSignalOptimizer
 
 def main():
-    parser = argparse.ArgumentParser(description="UrbanFlow Traffic Coordinator CLI")
-    parser.add_argument("--demo", action="store_true", help="Run simulated Webster cycle length calculation")
+    parser = argparse.ArgumentParser(description="Urban Traffic Coordinator CLI")
+    parser.add_argument("--demo", action="store_true", help="Optimize downtown intersection timing")
     args = parser.parse_args()
 
-    engine = UrbanTrafficFlowEngine()
-    report = engine.calculate_webster_cycle(lost_time_seconds=12.0, critical_flow_ratio_sum=0.72)
-    print("="*60)
-    print(" URBANFLOW ARTERIAL SIGNAL TIMING REPORT")
-    print("="*60)
-    print(json.dumps(report, indent=2))
-    print("="*60)
+    data_file = os.path.join(os.path.dirname(__file__), "fixtures", "sensor_feeds", "downtown_arterial.json")
+
+    if args.demo:
+        with open(data_file, "r") as f:
+            d = json.load(f)
+
+        res = WebsterSignalOptimizer.calculate_cycle_and_splits(
+            phases=d["phases"],
+            total_lost_time_l=d["lost_time_seconds"]
+        )
+
+        print("=== URBAN TRAFFIC SIGNAL OPTIMIZATION REPORT ===\n")
+        print(f"Intersection: {d['intersection_id']}")
+        print(f"Sum of Flow Ratios (Y): {res['sum_flow_ratios']} | Level of Service: {res['level_of_service']}")
+        print(f"Optimal Cycle Length (C_0): {res['optimal_cycle_seconds']} seconds (Lost Time: {res['total_lost_time_seconds']}s)\n")
+        print("Green Phase Split Allocation:")
+        for phase, green in res["green_phase_splits_seconds"].items():
+            print(f"  * {phase}: {green} seconds green time")
+        print()
+    else:
+        parser.print_help()
 
 if __name__ == "__main__":
     main()
